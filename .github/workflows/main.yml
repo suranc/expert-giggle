@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+    inputs:
+      echo:
+        description: 'Phrase to echo'
+        required: true
+        default: 'Hello World'
+      regex:
+        description: 'Regex to remove'
+        required: false
+        default: ' World'
+jobs:
+  perl_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ github.event.inputs.echo }}"| perl -p -e 's/(.*)${{ github.event.inputs.regex }}(.*)/$1$2/'
